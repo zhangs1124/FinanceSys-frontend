@@ -52,7 +52,7 @@ export function ExchangeRates() {
                 query = query.gte('date', fromDate)
             }
 
-            const { data, error } = await query.order('date', { ascending: true })
+            const { data, error } = await query.order('date', { ascending: true }).limit(5000)
 
             if (!error && data) {
                 setHistoryData(data)

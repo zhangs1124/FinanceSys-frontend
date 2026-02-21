@@ -18,7 +18,7 @@ export function DataManagement() {
     const [syncing, setSyncing] = useState<string | null>(null)
     const currentYear = new Date().getFullYear()
     const [exchangeYear, setExchangeYear] = useState<number>(currentYear)
-    const yearOptions = Array.from({ length: currentYear - 2022 }, (_, i) => currentYear - i) // 今年 ~ 2023
+
 
     const fetchCurrencies = async () => {
         setLoading(true)
@@ -97,13 +97,14 @@ export function DataManagement() {
                             🔄 匯率爬蟲
                         </button>
                         <label style={{ color: 'var(--text-secondary)', fontSize: '0.875rem' }}>年度：</label>
-                        <select
+                        <input
+                            type="number"
                             value={exchangeYear}
+                            min={2000}
+                            max={currentYear + 30}
                             onChange={(e) => setExchangeYear(Number(e.target.value))}
-                            style={{ padding: '6px 12px', borderRadius: '8px', background: 'var(--bg-dark)', color: 'white', border: '1px solid var(--border-color)', fontSize: '0.9rem', outline: 'none' }}
-                        >
-                            {yearOptions.map(y => <option key={y} value={y}>{y} 年</option>)}
-                        </select>
+                            style={{ padding: '6px 12px', borderRadius: '8px', background: 'var(--bg-dark)', color: 'white', border: '1px solid var(--border-color)', fontSize: '0.9rem', outline: 'none', width: '90px' }}
+                        />
                     </div>
                     {/* 基金爬蟲按鈕 */}
                     <button className="primary-btn" onClick={() => triggerSync('fund')} disabled={!!syncing}
